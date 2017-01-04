@@ -1,4 +1,4 @@
-package alexwan.myapplication;
+package alexwan.tinker;
 
 import org.junit.Test;
 

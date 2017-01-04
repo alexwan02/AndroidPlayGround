@@ -1,4 +1,4 @@
-package alexwan.myapplication;
+package alexwan.tinker;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

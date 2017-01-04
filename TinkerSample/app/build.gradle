@@ -1,14 +1,18 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "alexwan.myapplication"
+        applicationId "alexwan.tinker"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
+        multiDexEnabled true
+//        buildConfigField "String", "MESSAGE", "\"I am the base apk\""
+//        buildConfigField "String", "TINKER_ID", "\"${getTinkerIdValue()}\""
+//        buildConfigField "String", "PLATFORM",  "\"all\""
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,6 +20,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    //recommend
+    dexOptions {
+        jumboMode = true
     }
 }
 
@@ -27,4 +41,23 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     testCompile 'junit:junit:4.12'
+    // optional , help to generate the final application
+    provided('com.tencent.tinker:tinker-android-anno:1.7.6')
+    // tinker's main android lib
+    compile('com.tencent.tinker:tinker-android-lib:1.7.6')
+
+    compile "com.android.support:multidex:1.0.1"
 }
+
+//def gitSha(){
+//    try {
+//        String gitRev = 'git rev-parse --short HEAD'.execute(null , project.rootDir).text.trim()
+//        if(gitRev == null){
+//            throw new Gradle("")
+//        }
+//        return gitRev;
+//    } catch (Exception ex) {
+//        throw new GradleException("")
+//    }
+//}
+
