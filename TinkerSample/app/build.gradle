@@ -1,17 +1,52 @@
 apply plugin: 'com.android.application'
+
+def javaVersion = JavaVersion.VERSION_1_7
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+
+    //recommend
+    dexOptions {
+        jumboMode = true
+    }
+
+    signingConfigs{
+        release {
+
+        }
+
+        debug{
+
+        }
+    }
+
     defaultConfig {
         applicationId "alexwan.tinker"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        /**
+         * you can use multiDex and install it in your AppicationLifeCycle implement
+         */
         multiDexEnabled true
-//        buildConfigField "String", "MESSAGE", "\"I am the base apk\""
-//        buildConfigField "String", "TINKER_ID", "\"${getTinkerIdValue()}\""
-//        buildConfigField "String", "PLATFORM",  "\"all\""
+        /**
+         * buildConfig can change during patch
+         * we can use the newly value when patch
+         */
+        buildConfigField "String" , "MESSAG"  , "\"I am the base apk\""
+        /**
+         * client version would update with patch
+         * so we can get the newly git version easily!
+         */
+        buildConfigField "String" , "TINKER_ID" , "\"${getTinkerIdValue()}\""
+        buildConfigFiled "String" , "PLATFORM" , "\"all\""
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -27,10 +62,27 @@ android {
         }
     }
 
-    //recommend
-    dexOptions {
-        jumboMode = true
+    sourceSets {
+        main{
+            jniLibs.srcDirs = ['libs']
+        }
     }
+
+}
+
+def bakPatch = file("${buildDir}/bakApk")
+
+/**
+ * You can use assembleRelease to build your base apk
+ * use tinkerPatchRelease '-POLD_APK = -PAPPLY_MAPPING= -PAPPLY_RESOURCE= ' to build patch
+ * add apk from the build/bakApk
+ */
+ext{
+    // For some reason , you want to ignore tinkerBuild , such as instant run debug build
+    tinkerEnable = true
+    // For normal build
+    // Old apk file to build patch apk
+    tinkerOldApkPath = "${buildDir}/app-debug"
 }
 
 dependencies {
@@ -42,22 +94,11 @@ dependencies {
     compile 'com.android.support:design:25.0.0'
     testCompile 'junit:junit:4.12'
     // optional , help to generate the final application
-    provided('com.tencent.tinker:tinker-android-anno:1.7.6')
+    provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}"){changing = true}
     // tinker's main android lib
-    compile('com.tencent.tinker:tinker-android-lib:1.7.6')
+    compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}"){changing = true}
 
     compile "com.android.support:multidex:1.0.1"
 }
 
-//def gitSha(){
-//    try {
-//        String gitRev = 'git rev-parse --short HEAD'.execute(null , project.rootDir).text.trim()
-//        if(gitRev == null){
-//            throw new Gradle("")
-//        }
-//        return gitRev;
-//    } catch (Exception ex) {
-//        throw new GradleException("")
-//    }
-//}
 
