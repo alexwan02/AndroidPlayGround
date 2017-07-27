@@ -28,11 +28,11 @@ public class MessageService extends Service {
             public void run() {
                 //mBinder.send();
                 if(mCallBack != null){
-                    try {
-                        mCallBack.onReceiveMessage(new Message("alex" , "lucky" , "hello"));
-                    } catch (RemoteException e) {
-                        Log.e("MessageService" , "error = " + e.getMessage());
-                    }
+//                    try {
+//                        // mCallBack.onReceiveMessage(new Message("alex" , "lucky" , "hello"));
+//                    } catch (RemoteException e) {
+//                        Log.e("MessageService" , "error = " + e.getMessage());
+//                    }
 //                    mCallBack.onReceiveMessage(Message.CREATOR.createFromParcel());
                 }
             }
@@ -64,7 +64,8 @@ public class MessageService extends Service {
 
         @Override
         public void send(Message message) throws RemoteException {
-
+            Log.i("MessageService" , message.toString());
+            mCallBack.onReceiveMessage(message);
         }
 
         @Override

@@ -9,7 +9,10 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,8 +23,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mHandler = new Handler(getMainLooper());
+
         bindService();
 
+        final EditText editText = (EditText) findViewById(R.id.message);
+
+        findViewById(R.id.send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    String content = editText.getText().toString();
+                    mMessageService.send(new Message("lucky" , "alex" , TextUtils.isEmpty(content) ? "你好" : content));
+                } catch (RemoteException e) {
+                    Log.e(MainActivity.class.getSimpleName() , "error = " + e.getMessage());
+                }
+            }
+        });
     }
 
     private void bindService() {
