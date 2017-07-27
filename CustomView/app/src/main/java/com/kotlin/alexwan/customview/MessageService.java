@@ -28,6 +28,7 @@ public class MessageService extends Service {
             public void run() {
                 //mBinder.send();
                 if(mCallBack != null){
+                    
 //                    try {
 //                        // mCallBack.onReceiveMessage(new Message("alex" , "lucky" , "hello"));
 //                    } catch (RemoteException e) {
