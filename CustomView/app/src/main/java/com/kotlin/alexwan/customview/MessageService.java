@@ -4,6 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Parcel;
+import android.os.Process;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -65,7 +67,7 @@ public class MessageService extends Service {
 
         @Override
         public void send(Message message) throws RemoteException {
-            Log.i("MessageService" , message.toString());
+            Log.i("MessageService" , message.toString() + " ; pid = " + Process.myPid() + " ; thread = " + Thread.currentThread().getName());
             mCallBack.onReceiveMessage(message);
         }
 
@@ -76,6 +78,11 @@ public class MessageService extends Service {
                 Log.i("MessageService" , "info = registerCallBack");
                 mCallBack = callback;
             }
+        }
+
+        @Override
+        public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+            return super.onTransact(code, data, reply, flags);
         }
     };
 }

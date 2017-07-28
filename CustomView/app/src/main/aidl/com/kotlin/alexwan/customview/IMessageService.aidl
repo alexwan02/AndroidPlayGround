@@ -15,4 +15,5 @@ interface IMessageService {
     void send(in Message message);
 
     void registerCallBack(in IMessageCallBack callback);
+
 }

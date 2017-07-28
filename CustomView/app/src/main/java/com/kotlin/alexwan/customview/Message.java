@@ -24,7 +24,7 @@ public class Message implements Parcelable {
     }
 
 
-    public static final Creator<Message> CREATOR = new Creator<Message>() {
+    static final Creator<Message> CREATOR = new Creator<Message>() {
         @Override
         public Message createFromParcel(Parcel in) {
             return new Message(in);

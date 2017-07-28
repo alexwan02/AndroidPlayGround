@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Process;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 mMessageService.registerCallBack(new IMessageCallBack.Stub() {
                     @Override
                     public void onReceiveMessage(final Message message) throws RemoteException {
+                        Log.i(MainActivity.class.getSimpleName()  , "onReceiveMessage : pid = " + Process.myPid() + " ; thread = " + Thread.currentThread().getName());
                         Log.i("MainActivity" , "onReceiveMessage : " + message.toString());
                         mHandler.post(new Runnable() {
                             @Override

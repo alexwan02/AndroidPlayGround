@@ -1,0 +1,16 @@
+ext {
+    compileSdkVersion = 23
+    buildToolsVersion = "25.0.0"
+    minSdkVersion = 14
+    targetSdkVersion = 23
+    applicationId = "com.kotlin.alexwan.customview"
+
+    appcompatV7Version = "25.0.0"
+    supportV4Version = "25.0.0"
+
+    constraintLayoutVersion = "1.0.2"
+
+
+    // For test
+    junitVersion = "4.12"
+}
