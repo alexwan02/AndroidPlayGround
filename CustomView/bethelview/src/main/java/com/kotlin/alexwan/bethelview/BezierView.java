@@ -107,7 +107,7 @@ public class BezierView extends View {
         // Circle init
         centerX = displayWidth / 2;
         centerY = displayHeight / 2;
-        centerRadius = density * 25;
+        centerRadius = density * 10;
         initRadius = centerRadius;
 
         // Moving circle
@@ -115,7 +115,7 @@ public class BezierView extends View {
         movingY = centerY;
         movingRadius = centerRadius;
 
-        limitLength = 7 * centerRadius;
+        limitLength = 5 * centerRadius;
 
 
         // Path init
@@ -188,12 +188,45 @@ public class BezierView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+
+
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+
+
+        switch (heightMode){
+            case MeasureSpec.UNSPECIFIED :
+                Log.i(BezierView.class.getSimpleName() , "onMeasure ：heightMode = UNSPECIFIED");
+                break;
+            case MeasureSpec.AT_MOST :
+                Log.i(BezierView.class.getSimpleName() , "onMeasure ：heightMode = AT_MOST");
+                widthMeasureSpec = MeasureSpec.makeMeasureSpec(300 , MeasureSpec.EXACTLY);
+                heightMeasureSpec = MeasureSpec.makeMeasureSpec(300 , MeasureSpec.EXACTLY);
+                break;
+            case MeasureSpec.EXACTLY:
+                Log.i(BezierView.class.getSimpleName() , "onMeasure ：heightMode = EXACTLY ; heightSize = " + heightSize);
+                break;
+        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
+        Log.i(BezierView.class.getSimpleName() ,
+                "onLayout : getHeight = " + getHeight() + " ; getWidth = " + getWidth()
+                        + " \n; getTop = " + getTop() + "， top = " + top
+                        + " \n; getBottom = " + getBottom()
+                        + " \n; getPaddingTop = " + getPaddingTop() + " ; measure height = " + getMeasuredHeight());
+        centerX = getWidth() / 2;
+        centerY = getHeight() / 2;
+        movingX = centerX;
+        movingY = centerY;
+        updatePath();
+        invalidate();
     }
 
     @Override
