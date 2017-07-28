@@ -1,0 +1,12 @@
+apply plugin: 'java-library'
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttp3Version"
+    compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
+    compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

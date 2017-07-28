@@ -1,0 +1,30 @@
+ext {
+
+    applicationId = 'com.kotlin.alexwan.mvpkoltin'
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.0'
+    minSdkVersion = 14
+    targetSdkVersion = 25
+    versionCode = 1
+    versionName = '1.0'
+
+
+    appcompatV7Version = '25.0.0'
+    supportDesignVersion = '25.0.0'
+    supportV4Version = '25.0.0'
+    constraintLayoutVersion = '1.0.2'
+
+
+
+    jUnitVersion = '4.12'
+    supportTestVersion = '0.5'
+    espressoVersion = '3.0.0'
+
+
+    // core lib
+
+    okhttp3Version = '3.8.1'
+    retrofit2Version = '2.3.0'
+    rxjava2Version = '2.1.2'
+    glideVersion = '4.0.0-RC1'
+}
