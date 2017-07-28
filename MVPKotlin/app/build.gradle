@@ -25,6 +25,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':corelib')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "com.android.support:appcompat-v7:$rootProject.ext.appcompatV7Version"
     compile "com.android.support:design:$rootProject.ext.supportDesignVersion"
@@ -37,5 +38,6 @@ dependencies {
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion") {
         exclude module: 'support-annotations'
     }
-    compile project(':corelib')
+
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger2Version"
 }

@@ -27,4 +27,5 @@ ext {
     retrofit2Version = '2.3.0'
     rxjava2Version = '2.1.2'
     glideVersion = '4.0.0-RC1'
+    dagger2Version = '2.11'
 }
