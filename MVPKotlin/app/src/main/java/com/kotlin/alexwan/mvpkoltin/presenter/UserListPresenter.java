@@ -31,8 +31,16 @@ public class UserListPresenter implements Presenter {
     private final UserModelDataMapper mModelMapper;
 
     @Inject
-    public UserListPresenter(UserModelDataMapper mModelMapper) {
+    UserListPresenter(UserModelDataMapper mModelMapper) {
         this.mModelMapper = mModelMapper;
+    }
+
+    public void setView(UserListView listView){
+        this.mUserListView = listView;
+    }
+
+    public void initialize(){
+
     }
 
     @Override

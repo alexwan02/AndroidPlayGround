@@ -11,20 +11,20 @@
  *  limitations under the License.
  */
 
-package com.kotlin.alexwan.mvpkoltin.mapper;
+package com.kotlin.alexwan.data;
 
-import com.kotlin.alexwan.mvpkoltin.internal.di.PerActivity;
+import org.junit.Test;
 
-import javax.inject.Inject;
+import static org.junit.Assert.*;
 
 /**
- * Created by alexwan on 31/07/2017.
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-
-@PerActivity
-public class UserModelDataMapper {
-
-    @Inject
-    public UserModelDataMapper(){}
-
+public class ExampleUnitTest {
+    @Test
+    public void addition_isCorrect() throws Exception {
+        assertEquals(4, 2 + 2);
+    }
 }

@@ -3,7 +3,6 @@ package com.kotlin.alexwan.mvpkoltin.internal.di.component;
 import com.kotlin.alexwan.mvpkoltin.internal.di.PerActivity;
 import com.kotlin.alexwan.mvpkoltin.internal.di.modules.ActivityModule;
 import com.kotlin.alexwan.mvpkoltin.internal.di.modules.UserModule;
-import com.kotlin.alexwan.mvpkoltin.view.fragment.BaseFragment;
 import com.kotlin.alexwan.mvpkoltin.view.fragment.UserDetailFragment;
 import com.kotlin.alexwan.mvpkoltin.view.fragment.UserListFragment;
 

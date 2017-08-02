@@ -16,23 +16,34 @@ package com.kotlin.alexwan.mvpkoltin.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.kotlin.alexwan.mvpkoltin.R;
 import com.kotlin.alexwan.mvpkoltin.internal.di.HasComponent;
 import com.kotlin.alexwan.mvpkoltin.internal.di.component.DaggerUserComponent;
 import com.kotlin.alexwan.mvpkoltin.internal.di.component.UserComponent;
+import com.kotlin.alexwan.mvpkoltin.model.UserModel;
+import com.kotlin.alexwan.mvpkoltin.view.fragment.UserListFragment;
 
 /**
- * UserDetailActivity
  * Created by alexwan on 31/07/2017.
  */
 
-public class UserDetailActivity extends BaseActivity implements HasComponent<UserComponent> {
+public class UserListActivity extends BaseActivity implements HasComponent<UserComponent>, UserListFragment.UserListListener {
 
     private UserComponent mUserComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_list);
         initializeInjector();
+        addFragment(R.id.container, new UserListFragment());
+    }
+
+    private void initializeInjector() {
+        this.mUserComponent = DaggerUserComponent.builder()
+                .activityModule(getActivityModule())
+                .applicationComponent(getApplicationComponent())
+                .build();
     }
 
     @Override
@@ -40,16 +51,13 @@ public class UserDetailActivity extends BaseActivity implements HasComponent<Use
         super.onSaveInstanceState(outState);
     }
 
-    private void initializeInjector() {
-        this.mUserComponent = DaggerUserComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(getActivityModule())
-                .build();
-
-    }
-
     @Override
     public UserComponent getComponent() {
         return mUserComponent;
+    }
+
+    @Override
+    public void onUserClicked(final UserModel userModel) {
+        mNavigator.navigateToUserDetail(this, userModel.getUserId());
     }
 }

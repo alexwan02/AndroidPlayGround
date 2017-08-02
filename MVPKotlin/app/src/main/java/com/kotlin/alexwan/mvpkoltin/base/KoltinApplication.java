@@ -14,10 +14,14 @@
 package com.kotlin.alexwan.mvpkoltin.base;
 
 import android.app.Application;
+import android.net.wifi.WifiManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.kotlin.alexwan.mvpkoltin.internal.di.component.ApplicationComponent;
 import com.kotlin.alexwan.mvpkoltin.internal.di.component.DaggerApplicationComponent;
 import com.kotlin.alexwan.mvpkoltin.internal.di.modules.ApplicationModule;
+
+import javax.inject.Inject;
 
 /**
  * Created by alexwan on 31/07/2017.
@@ -26,6 +30,11 @@ import com.kotlin.alexwan.mvpkoltin.internal.di.modules.ApplicationModule;
 public class KoltinApplication extends Application {
     private ApplicationComponent mAppComponent;
 
+    @Inject
+    InputMethodManager mInputMethodManager;
+
+    @Inject
+    WifiManager mWifiManager;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -36,6 +45,8 @@ public class KoltinApplication extends Application {
         mAppComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+
+        mAppComponent.inject(this);
     }
 
     public ApplicationComponent getApplicationComponent() {

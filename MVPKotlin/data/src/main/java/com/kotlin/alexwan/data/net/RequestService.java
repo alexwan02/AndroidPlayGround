@@ -11,20 +11,15 @@
  *  limitations under the License.
  */
 
-package com.kotlin.alexwan.mvpkoltin.mapper;
+package com.kotlin.alexwan.data.net;
 
-import com.kotlin.alexwan.mvpkoltin.internal.di.PerActivity;
-
-import javax.inject.Inject;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by alexwan on 31/07/2017.
  */
 
-@PerActivity
-public class UserModelDataMapper {
+public interface RequestService {
 
-    @Inject
-    public UserModelDataMapper(){}
 
 }

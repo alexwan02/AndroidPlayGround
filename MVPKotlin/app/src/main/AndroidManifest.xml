@@ -27,6 +27,10 @@
             android:name=".view.activity.UserDetailActivity"
             android:configChanges="layoutDirection"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.UserListActivity"
+            android:configChanges="layoutDirection"
+            android:screenOrientation="portrait" />
 
     </application>
 

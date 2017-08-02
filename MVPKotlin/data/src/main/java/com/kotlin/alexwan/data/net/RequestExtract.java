@@ -11,34 +11,29 @@
  *  limitations under the License.
  */
 
-package com.kotlin.alexwan.mvpkoltin.navigation;
+package com.kotlin.alexwan.data.net;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.kotlin.alexwan.mvpkoltin.view.activity.UserDetailActivity;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by alexwan on 31/07/2017.
  */
-@Singleton
-public class Navigator {
 
-    @Inject
-    public Navigator() {
+public class RequestExtract {
+    private static final ConcurrentHashMap<String, RequestService> services = new ConcurrentHashMap<>();
+
+    private RequestExtract() {
     }
 
-    public void navigateToUserList(@NonNull Context context) {
-        //  Intent intentToLaunch = UserListActivity
-
+    public static RequestService SERVICE(@NonNull String baseUrl) {
+        if (!services.containsKey(baseUrl) || services.get(baseUrl) == null) {
+            // services.put(baseUrl, );
+            return services.get(baseUrl);
+        }
+        return services.get(baseUrl);
     }
 
-    public void navigateToUserDetail(@NonNull Context context, int userId) {
-        Intent intent = new Intent(context, UserDetailActivity.class);
-        context.startActivity(intent);
-    }
+
 }

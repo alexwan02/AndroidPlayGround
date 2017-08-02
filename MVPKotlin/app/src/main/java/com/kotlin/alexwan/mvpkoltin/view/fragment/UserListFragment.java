@@ -19,11 +19,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableRow;
 
+import com.kotlin.alexwan.mvpkoltin.R;
 import com.kotlin.alexwan.mvpkoltin.internal.di.component.UserComponent;
 import com.kotlin.alexwan.mvpkoltin.model.UserModel;
-import com.kotlin.alexwan.mvpkoltin.presenter.UserDetailPresenter;
 import com.kotlin.alexwan.mvpkoltin.presenter.UserListPresenter;
 import com.kotlin.alexwan.mvpkoltin.view.adapter.UserAdapter;
 import com.kotlin.alexwan.mvpkoltin.view.interaction.UserListView;
@@ -38,11 +37,16 @@ import javax.inject.Inject;
 
 public class UserListFragment extends BaseFragment implements UserListView {
 
-    @Inject
-    UserListPresenter mUserListPresenter;
+    public interface UserListListener {
+        void onUserClicked(final UserModel userModel);
+    }
 
     @Inject
+    UserListPresenter mUserListPresenter;
+    @Inject
     UserAdapter mUserAdapter;
+
+    private UserListListener mUserListListener;
 
     public UserListFragment() {
         setRetainInstance(true);
@@ -51,7 +55,11 @@ public class UserListFragment extends BaseFragment implements UserListView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (getActivity() instanceof UserListListener) {
+            this.mUserListListener = (UserListListener) getActivity();
+        }
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,12 +70,18 @@ public class UserListFragment extends BaseFragment implements UserListView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.fragment_user_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.mUserListPresenter.setView(this);
+        loadUserList();
+    }
+
+    private void loadUserList() {
+        this.mUserListPresenter.initialize();
     }
 
     @Override

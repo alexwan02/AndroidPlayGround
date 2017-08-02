@@ -26,18 +26,26 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':corelib')
+    compile project(':data')
+
+    testCompile "junit:junit:$rootProject.ext.jUnitVersion"
+    androidTestCompile("com.android.support.test:runner:$rootProject.ext.supportTestVersion") {
+        exclude module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion") {
+        exclude module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+        exclude group: 'com.android.support'
+    }
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "com.android.support:appcompat-v7:$rootProject.ext.appcompatV7Version"
     compile "com.android.support:design:$rootProject.ext.supportDesignVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportV4Version"
     compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
-    testCompile "junit:junit:$rootProject.ext.jUnitVersion"
-    androidTestCompile("com.android.support.test:runner:$rootProject.ext.supportTestVersion") {
-        exclude module: 'support-annotations'
-    }
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion") {
-        exclude module: 'support-annotations'
-    }
-
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger2Version"
+    compile "com.google.dagger:dagger-android-support:$rootProject.ext.dagger2Version"
+    compile "com.google.dagger:dagger-android:$rootProject.ext.dagger2Version"
 }

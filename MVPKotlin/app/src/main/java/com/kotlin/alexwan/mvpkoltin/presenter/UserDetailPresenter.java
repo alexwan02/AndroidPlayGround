@@ -32,7 +32,7 @@ public class UserDetailPresenter implements Presenter {
     private final UserModelDataMapper mUserMapper;
 
     @Inject
-    public UserDetailPresenter(UserModelDataMapper mUserMapper) {
+    UserDetailPresenter(UserModelDataMapper mUserMapper) {
         this.mUserMapper = mUserMapper;
     }
 

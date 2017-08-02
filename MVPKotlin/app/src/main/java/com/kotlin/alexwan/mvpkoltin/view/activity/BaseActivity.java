@@ -50,9 +50,9 @@ public abstract class BaseActivity extends FragmentActivity {
         return ((KoltinApplication) getApplication()).getApplicationComponent();
     }
 
+
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
     }
-
 
 }
